@@ -3,9 +3,9 @@
     <div class="col-xs-12">
       <button 
       class="btn btn-primary"
-      (click)="onlyOdd = !onlyOdd">Only Show Odd Numbers</button>
+      (click)="toggle()">Only Show Odd Numbers</button>
       <ul class="list-group">
-        <div *ngIf="!onlyOdd">
+        <div *ngIf="showAll">
             <li *ngFor="let number of numbers" 
             class="list-group-item"
             [ngClass]="{odd: number % 2 !== 0}"
@@ -13,19 +13,23 @@
               {{number}}            
             </li>
         </div>
-        <div *ngIf="onlyOdd">
-            <li *ngFor="let number of oddNumbers" 
-            class="list-group-item">
-              {{number}}            
-            </li>
-        </div>
+        <div *appUnless="!showOdd">
+          <li *ngFor="let number of oddNumbers" 
+          class="list-group-item">
+            {{number}}            
+          </li>
+      </div>
       </ul>
 
       <p appBasicHighlight>Style me with a directive !!</p>
-      <p [appBetterHighlight]="'red'"
-       [ngClass]="odd" defaultColor="blue">Style me with a directive !!</p>
-
-
+      <p [appBetterHighlight]="'red'" defaultColor="blue">Style me with a directive !!</p>
+      <div [ngSwitch]="value">
+        <p *ngSwitchCase="5">Values is 5</p>
+        <p *ngSwitchCase="10">Values is 10</p>
+        <p *ngSwitchCase="100">Values is 100</p>
+    
+      </div>  
+      
     </div>
   </div>
 </div>
