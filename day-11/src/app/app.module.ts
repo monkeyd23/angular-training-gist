@@ -10,22 +10,10 @@ import { EditServerComponent } from './servers/edit-server/edit-server.component
 import { ServersService } from './servers/servers.service';
 import { UserComponent } from './users/user/user.component';
 import { FormsModule } from '@angular/forms'
-import { Routes, RouterModule } from '@angular/router'
-
-const appRoutes: Routes = [
-  {path: '', component:HomeComponent},
-  {path: 'users', component:UsersComponent,
-    children:[
-      {path: ':id/:name', component:UserComponent},
-    ]
-  },
-  {path: 'servers', component:ServersComponent,
-    children:[
-      {path: ':id', component:ServerComponent},
-      {path: ':id/edit', component:EditServerComponent}
-    ]
-  }
-];
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { AppRoutingModule } from './app.routing.module';
+import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -35,14 +23,15 @@ const appRoutes: Routes = [
     UsersComponent,
     ServerComponent,
     EditServerComponent,
-    UserComponent
+    UserComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
-  providers: [ServersService],
+  providers: [ServersService, AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
